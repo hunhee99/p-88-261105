@@ -1,0 +1,13 @@
+name: work-1
+on:
+  push:
+    branches:
+      - main
+jobs:
+  hello:
+    runs-on: ubuntu-latest
+    steps:
+      - name: sayHi
+        run: exho "Hi"
+      - name: sayMyName
+        run: echo "${{ github.actor }}"
