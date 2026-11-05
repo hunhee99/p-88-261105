@@ -4,10 +4,10 @@ on:
     branches:
       - main
 jobs:
-  hello:
+  hello1:
     runs-on: ubuntu-latest
     steps:
       - name: sayHi
-        run: exho "Hi"
+        run: echo "Hi"
       - name: sayMyName
         run: echo "${{ github.actor }}"
