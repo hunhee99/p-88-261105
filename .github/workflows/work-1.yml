@@ -36,6 +36,10 @@ jobs:
     name: 도커 이미지 빌드와 푸시
     needs: makeTagAndRelease
     runs-on: ubuntu-latest
+    outputs:                                                    # 추가
+      owner_lc: ${{ steps.export_owner.outputs.owner_lc }}
+      image_name: ${{ steps.export_image.outputs.image_name }}
+
     steps:
       - uses: actions/checkout@v4
 
@@ -93,5 +97,5 @@ jobs:
               docker pull ghcr.io/${{ needs.buildImageAndPush.outputs.owner_lc }}/${{ needs.buildImageAndPush.outputs.image_name }}:latest && \
               docker stop app1 2>/dev/null || true && \
               docker rm app1 2>/dev/null || true && \
-              docker run -d --name app1 -p 8080:8080 ghcr.io/${{ needs.buildImageAndPush.outputs.owner_lc }}/${{ needs.buildImageAndPush.outputs.image_name }}:latest && \
+              docker run -d --name app1 -p 8080:80 ghcr.io/${{ needs.buildImageAndPush.outputs.owner_lc }}/${{ needs.buildImageAndPush.outputs.image_name }}:latest && \
               docker rmi $(docker images -f "dangling=true" -q) || true
